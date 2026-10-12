@@ -1,0 +1,22 @@
+services:
+  postgres-confluent:
+    image: postgres:16-alpine
+    container_name: confluent-payments-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-payments_db}
+      POSTGRES_USER: ${POSTGRES_USER:-cdc_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cdc_password_123}
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - confluent_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-cdc_user} -d ${POSTGRES_DB:-payments_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  confluent_postgres_data:
+    driver: local
