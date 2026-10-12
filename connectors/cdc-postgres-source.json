@@ -1,0 +1,22 @@
+{
+  "name": "PostgresCdcSourceV2_Payments",
+  "config": {
+    "connector.class": "PostgresCdcSourceV2",
+    "name": "PostgresCdcSourceV2_Payments",
+    "kafka.auth.mode": "KAFKA_API_KEY",
+    "topic.prefix": "desafio",
+    "database.hostname": "${file:.env:POSTGRES_HOST}",
+    "database.port": "${file:.env:POSTGRES_PORT}",
+    "database.user": "${file:.env:POSTGRES_USER}",
+    "database.password": "${file:.env:POSTGRES_PASSWORD}",
+    "database.dbname": "${file:.env:POSTGRES_DB}",
+    "database.sslmode": "require",
+    "table.include.list": "public.customers,public.accounts,public.cards,public.merchants,public.transactions",
+    "plugin.name": "pgoutput",
+    "tombstones.on.delete": "true",
+    "heartbeat.interval.ms": "60000",
+    "output.data.format": "AVRO",
+    "output.key.format": "AVRO",
+    "tasks.max": "1"
+  }
+}

@@ -1,0 +1,14 @@
+# Ambientes e Variáveis de Ambiente
+.env
+*.env
+.venv/
+venv/
+__pycache__/
+
+# IDEs e OS
+.vscode/
+.idea/
+.DS_Store
+
+# Teardown Logs
+*.log
